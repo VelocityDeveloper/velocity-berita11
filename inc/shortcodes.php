@@ -143,7 +143,6 @@ function vd_post($atts)
     $atribut = shortcode_atts(array(
         'category'  => '',
         'limit'     => '3',
-        'label'     => '',
         'order'     => 'DESC',
         'orderby'   => 'date',
     ), $atts);
