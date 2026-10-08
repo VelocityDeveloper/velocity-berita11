@@ -74,7 +74,15 @@ function vdbanner($sett, $class, $loading = 'lazy')
         return '';
     }
 
-    $html = '<img src="' . esc_url($img) . '" alt="' . esc_attr__('Banner', 'justg') . '" class="img-fluid" loading="' . esc_attr($loading) . '" decoding="async">';
+    // Ukuran asli dari pustaka media agar ruang banner sudah tersedia sebelum gambar termuat.
+    $size = '';
+    $id   = attachment_url_to_postid($img);
+    $src  = $id ? wp_get_attachment_image_src($id, 'full') : false;
+    if ($src && $src[1] && $src[2]) {
+        $size = ' width="' . (int) $src[1] . '" height="' . (int) $src[2] . '"';
+    }
+
+    $html = '<img src="' . esc_url($img) . '"' . $size . ' alt="' . esc_attr__('Banner', 'justg') . '" class="img-fluid" loading="' . esc_attr($loading) . '" decoding="async">';
     $link = velocitytheme_option($sett . '_link');
     if ($link) {
         $html = '<a href="' . esc_url($link) . '" target="_blank" rel="noopener sponsored">' . $html . '</a>';
