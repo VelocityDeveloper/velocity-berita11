@@ -114,7 +114,7 @@ img { max-width: 100%; height: auto; }
 .related-post .post-title a { color: var(--bs-body-color); text-decoration: none; }
 .productpost .post-title a:hover,
 .related-post .post-title a:hover { color: var(--color-theme); }
-.post-title {
+.post-title a {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
