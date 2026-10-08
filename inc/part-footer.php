@@ -1,6 +1,6 @@
 <footer class="site-footer bg-light mb-3 p-0" id="colophon">
     <?php if (velocitytheme_option('banner_footer')) : ?>
-        <div class="container pt-3"><?php echo vdbanner('banner_footer', 'text-center'); ?></div>
+        <div class="container"><?php echo vdbanner('banner_footer', 'text-center'); ?></div>
     <?php endif; ?>
     <div class="container">
         <div class="card bg-transparent m-0 rounded-0 border-light border-0">

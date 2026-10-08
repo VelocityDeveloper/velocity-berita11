@@ -30,7 +30,7 @@ if (!function_exists('velocity_berita11_warna')) {
         }
 
         $primary = sanitize_hex_color((string) get_theme_mod('primary_color', ''));
-        if ($primary && '#1e73be' !== strtolower($primary)) {
+        if ($primary && !in_array(strtolower($primary), array('#1e73be', '#1c4e88'), true)) {
             return $primary;
         }
 
@@ -153,6 +153,31 @@ function velocity_berita11_customize_preview()
     );
 }
 
+if (!function_exists('velocity_berita11_warna_desain')) {
+    /**
+     * Warna teks & link desain Berita 11. Versi Kirki menampilkan warna bawaan
+     * CSS induk karena induk tidak mencetak warna Customizer saat Kirki aktif.
+     */
+    function velocity_berita11_warna_desain()
+    {
+        return array(
+            'body_text_color'   => '#212529',
+            'heading_color'     => '#212529',
+            'link_color'        => '#1c4e88',
+            'link_hover_color'  => '#163e6d',
+            'link_active_color' => '#1c4e88',
+            'primary_color'     => '#1c4e88',
+        );
+    }
+}
+
+// Bawaan warna induk untuk instalasi baru.
+add_filter('justg_theme_default_settings', 'velocity_berita11_default_settings');
+function velocity_berita11_default_settings($defaults)
+{
+    return array_merge($defaults, velocity_berita11_warna_desain());
+}
+
 /**
  * Migrasi sekali dari versi Kirki: TikTok dulu tersimpan di `sosmedtiktok`
  * (salah ketik), sedangkan ikon membaca `sosmed_tiktok`.
@@ -160,7 +185,30 @@ function velocity_berita11_customize_preview()
 add_action('after_setup_theme', 'velocity_berita11_migrasi_kirki', 5);
 function velocity_berita11_migrasi_kirki()
 {
-    if (get_theme_mod('velocity_berita11_migrasi', 0) >= 1) {
+    $versi = (int) get_theme_mod('velocity_berita11_migrasi', 0);
+    if ($versi >= 2) {
+        return;
+    }
+
+    // Warna induk yang masih bawaan (belum pernah diubah) diganti warna yang
+    // dulu tampil, agar tampilan sama seperti versi Kirki.
+    $bawaan_induk = array(
+        'body_text_color'   => '#333333',
+        'heading_color'     => '#121212',
+        'link_color'        => '#002b5b',
+        'link_hover_color'  => '#333333',
+        'link_active_color' => '#333333',
+        'primary_color'     => '#1e73be',
+    );
+    foreach (velocity_berita11_warna_desain() as $mod => $warna) {
+        $simpan = get_theme_mod($mod, null);
+        if (null === $simpan || strtolower((string) $simpan) === $bawaan_induk[$mod]) {
+            set_theme_mod($mod, $warna);
+        }
+    }
+
+    if ($versi >= 1) {
+        set_theme_mod('velocity_berita11_migrasi', 2);
         return;
     }
 
@@ -170,7 +218,7 @@ function velocity_berita11_migrasi_kirki()
     }
     remove_theme_mod('sosmedtiktok');
 
-    set_theme_mod('velocity_berita11_migrasi', 1);
+    set_theme_mod('velocity_berita11_migrasi', 2);
 }
 
 add_action('wp_head', 'velocity_berita11_inline_css', 30);

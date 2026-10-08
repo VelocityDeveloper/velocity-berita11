@@ -34,12 +34,12 @@ $container = velocitytheme_option('justg_container_type', 'container');
                 <?php
 
                 ?>
-                <header class="page-header block-primary py-2 mb-2">
+                <header class="page-header block-primary py-2">
                     <?php
                     if (is_search()) {
-                        echo '<h1 class="page-title h4 fw-bold">' . esc_html(sprintf(__('Hasil pencarian: %s', 'justg'), get_search_query())) . '</h1>';
+                        echo '<h1 class="page-title">' . esc_html(sprintf(__('Hasil pencarian: %s', 'justg'), get_search_query())) . '</h1>';
                     } else {
-                        the_archive_title('<h1 class="page-title h4 fw-bold">', '</h1>');
+                        the_archive_title('<h1 class="page-title">' . (is_category() ? 'Category : ' : ''), '</h1>');
                         the_archive_description('<div class="taxonomy-description">', '</div>');
                     }
                     ?>

@@ -60,14 +60,12 @@ $format     = get_post_format() ?: 'standard';
                     </div>
 
                     <div class="entry-content">
-                        <?php if (velocitytheme_option('banner_single1')) : ?>
-                            <div class="pb-3">
-                                <?php echo vdbanner('banner_single1', 'text-center', 'eager'); ?>
-                            </div>
-                        <?php endif; ?>
+                        <div class="pb-3">
+                            <?php echo vdbanner('banner_single1', 'text-center', 'eager'); ?>
+                        </div>
                         <?php
                         if (has_post_thumbnail() && $format !== 'video') {
-                            echo '<figure class="pb-2 text-center text-muted">';
+                            echo '<figure class="pb-2 mb-0 text-center text-muted">';
                             the_post_thumbnail('large', array(
                                 'class'         => 'img-fluid w-100 mb-2',
                                 'alt'           => the_title_attribute(array('echo' => false)),
@@ -75,18 +73,16 @@ $format     = get_post_format() ?: 'standard';
                                 'fetchpriority' => 'high',
                             ));
                             if (get_the_post_thumbnail_caption()) {
-                                echo '<figcaption class="small">' . wp_kses_post(get_the_post_thumbnail_caption()) . '</figcaption>';
+                                echo '<figcaption>' . wp_kses_post(get_the_post_thumbnail_caption()) . '</figcaption>';
                             }
                             echo '</figure>';
                         }
                         ?>
 
                         <?php the_content(); ?>
-                        <?php if (velocitytheme_option('banner_single2')) : ?>
-                            <div class="pb-3">
-                                <?php echo vdbanner('banner_single2', 'text-center'); ?>
-                            </div>
-                        <?php endif; ?>
+                        <div class="pb-3">
+                            <?php echo vdbanner('banner_single2', 'text-center'); ?>
+                        </div>
 
                         <div class="tag-singles fs-6">
                             <?php $gettags = get_the_tags(get_the_ID()); ?>

@@ -138,8 +138,19 @@ function velocity_berita11_breadcrumb()
         return;
     }
 
-    $title = is_search() ? sprintf(__('Pencarian: %s', 'justg'), get_search_query()) : wp_strip_all_tags(get_the_archive_title());
-    echo '<div class="breadcrumbs pb-2"><a href="' . esc_url(home_url('/')) . '">' . esc_html__('Home', 'justg') . '</a> &raquo; <span>' . esc_html($title) . '</span></div>';
+    // Markup & pemisah sama dengan breadcrumb induk.
+    $separator = '<span class="separator"> ' . esc_html(velocitytheme_option('text_breadcrumb_separator', '/')) . ' </span>';
+    $title     = is_search() ? sprintf(__('Pencarian: %s', 'justg'), get_search_query()) : wp_strip_all_tags(get_the_archive_title());
+    $link      = is_search() ? get_search_link() : (is_category() || is_tag() || is_tax() ? get_term_link(get_queried_object()) : '');
+
+    echo '<div class="justg-breadcrumbs"><div class="breadcrumbs pb-2"><div class="breadcrumbs-inner">';
+    echo '<a href="' . esc_url(home_url('/')) . '">' . esc_html__('Home', 'justg') . '</a>' . $separator;
+    if ($link && !is_wp_error($link)) {
+        echo '<a href="' . esc_url($link) . '">' . esc_html($title) . '</a>';
+    } else {
+        echo '<span>' . esc_html($title) . '</span>';
+    }
+    echo '</div></div></div>';
 }
 
 // Judul arsip tanpa awalan "Kategori:" / "Category:".

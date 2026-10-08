@@ -233,8 +233,8 @@ function vd_sosmed()
         if (!$url || !isset($icons[$platform])) {
             continue;
         }
-        $html .= '<a class="sosmed-link" href="' . esc_url($url) . '" target="_blank" rel="noopener" aria-label="' . esc_attr($label) . '">' . $icons[$platform] . '</a>';
+        $html .= '<span class="p-2"><a href="' . esc_url($url) . '" target="_blank" rel="noopener" aria-label="' . esc_attr($label) . '">' . str_replace('class="bi', 'class="text-muted bi', $icons[$platform]) . '</a></span>';
     }
 
-    return $html ? '<div class="sosmed d-inline-flex flex-wrap gap-1">' . $html . '</div>' : '';
+    return $html ? '<div class="sosmed">' . $html . '</div>' : '';
 }

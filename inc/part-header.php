@@ -49,7 +49,7 @@ $bannertop1 = velocitytheme_option('banner_header1');
                 <?php endif;
             else :
                 $sitelogo = get_theme_mod('custom_logo'); ?>
-                <div class="site-logo position-relative text-center text-md-start p-md-0 pb-2">
+                <div class="site-logo position-relative text-center p-md-0 pb-2">
                     <a href="<?php echo esc_url(home_url('/')); ?>" rel="home">
                         <?php echo wp_get_attachment_image($sitelogo, 'full', false, array(
                             'alt'           => get_bloginfo('name'),
@@ -64,7 +64,7 @@ $bannertop1 = velocitytheme_option('banner_header1');
         <div class="col-md-8">
             <?php if ($bannertop1) : ?>
                 <div class="banner-header pb-2">
-                    <?php echo vdbanner('banner_header1', 'text-md-end text-center', 'eager'); ?>
+                    <?php echo vdbanner('banner_header1', 'text-end', 'eager'); ?>
                 </div>
             <?php endif; ?>
         </div>
