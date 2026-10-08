@@ -8,9 +8,7 @@
  *
  * @package justg
  */
-// phpinfo();
 get_header();
-$container         = velocitytheme_option('justg_container_type', 'container');
 ?>
 <div class="wrapper p-0" id="page-wrapper">
     <div class="" id="content">
@@ -25,12 +23,11 @@ $container         = velocitytheme_option('justg_container_type', 'container');
                     'post_type' => 'post',
                     'paged' => $paged,
                 ];
-                $wp_query = new WP_Query($args);
-                // echo '<pre>' . print_r($wp_query, 1) . '</pre>';
-                if ($wp_query->have_posts()) : ?>
+                $home_query = new WP_Query($args);
+                if ($home_query->have_posts()) : ?>
                     <div class="blog-home">
                         <div class="row mx-0">
-                            <?php while ($wp_query->have_posts()) : $wp_query->the_post();
+                            <?php while ($home_query->have_posts()) : $home_query->the_post();
                                 get_template_part('loop-templates/content', get_post_format());
                             endwhile; ?>
                         </div>
@@ -40,7 +37,7 @@ $container         = velocitytheme_option('justg_container_type', 'container');
                     // Fungsi pagination
                     echo '<div class="pagination pagi-home">';
                     echo paginate_links([
-                        'total' => $wp_query->max_num_pages,
+                        'total' => $home_query->max_num_pages,
                         'current' => $paged,
                         'prev_text' => __('&laquo; Prev'),
                         'next_text' => __('Next &raquo;'),
@@ -48,7 +45,7 @@ $container         = velocitytheme_option('justg_container_type', 'container');
                     echo '</div>';
                 else : get_template_part('loop-templates/content', 'none');
                 endif;
-                wp_reset_query(); ?>
+                wp_reset_postdata(); ?>
             </main><!-- #main -->
             <?php do_action('justg_after_content'); ?>
         </div>

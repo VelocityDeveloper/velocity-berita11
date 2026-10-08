@@ -21,7 +21,7 @@ $container = velocitytheme_option('justg_container_type', 'container');
     <div class="<?php echo esc_attr($container); ?>" id="content" tabindex="-1">
 
         <div class="card-breadcrumbs bg-light pt-2 px-3 mb-3">
-            <?php echo justg_breadcrumb(); ?>
+            <?php velocity_berita11_breadcrumb(); ?>
         </div>
 
         <div class="row m-0">
@@ -33,15 +33,19 @@ $container = velocitytheme_option('justg_container_type', 'container');
 
                 <?php
 
-                if (have_posts()) :
                 ?>
-                    <header class="page-header block-primary py-2">
-                        <?php
-                        the_archive_title('<h1 class="page-title">Category : ', '</h1>');
+                <header class="page-header block-primary py-2 mb-2">
+                    <?php
+                    if (is_search()) {
+                        echo '<h1 class="page-title h4 fw-bold">' . esc_html(sprintf(__('Hasil pencarian: %s', 'justg'), get_search_query())) . '</h1>';
+                    } else {
+                        the_archive_title('<h1 class="page-title h4 fw-bold">', '</h1>');
                         the_archive_description('<div class="taxonomy-description">', '</div>');
-                        ?>
-                    </header><!-- .page-header -->
+                    }
+                    ?>
+                </header><!-- .page-header -->
                 <?php
+                if (have_posts()) :
                     // Start the loop.
                     while (have_posts()) :
                         the_post();

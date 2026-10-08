@@ -1,5 +1,7 @@
 <footer class="site-footer bg-light mb-3 p-0" id="colophon">
-    <div class="container"><?php echo vdbanner('banner_footer', 'text-center'); ?></div>
+    <?php if (velocitytheme_option('banner_footer')) : ?>
+        <div class="container pt-3"><?php echo vdbanner('banner_footer', 'text-center'); ?></div>
+    <?php endif; ?>
     <div class="container">
         <div class="card bg-transparent m-0 rounded-0 border-light border-0">
             <div class="velocity-footer">
@@ -40,7 +42,7 @@
                 </div><!-- .secondary-menuset -->
                 <div class="site-info px-2">
                     <small>
-                        Copyright © <?php echo date("Y"); ?> <?php echo get_bloginfo('name'); ?>. All Rights Reserved.
+                        Copyright © <?php echo esc_html(date_i18n('Y')); ?> <?php echo esc_html(get_bloginfo('name')); ?>. All Rights Reserved.
                     </small>
                     <br>
                     <small class="opacity-50">

@@ -38,7 +38,7 @@ $bannertop1 = velocitytheme_option('banner_header1');
     </div><!-- .primary-menuset -->
 </div>
 
-<div class="container my-3">
+<div class="container header-brand my-3">
     <div class="row m-0 align-items-center">
         <div class="col-md-4">
             <?php if (!has_custom_logo()) :
@@ -48,20 +48,23 @@ $bannertop1 = velocitytheme_option('banner_header1');
                     <a class="navbar-brand" rel="home" href="<?php echo esc_url(home_url('/')); ?>" itemprop="url"><?php bloginfo('name'); ?></a>
                 <?php endif;
             else :
-                $sitelogo = velocitytheme_option('custom_logo'); ?>
-                <div class="position-relative text-center p-md-0 pb-2">
-                    <?php if ($sitelogo) : ?>
-                        <a href="<?php echo get_home_url(); ?>">
-                            <img src="<?php echo wp_get_attachment_image_url($sitelogo, 'full'); ?>" alt="Site Logo" loading="lazy">
-                        </a>
-                    <?php endif; ?>
+                $sitelogo = get_theme_mod('custom_logo'); ?>
+                <div class="site-logo position-relative text-center text-md-start p-md-0 pb-2">
+                    <a href="<?php echo esc_url(home_url('/')); ?>" rel="home">
+                        <?php echo wp_get_attachment_image($sitelogo, 'full', false, array(
+                            'alt'           => get_bloginfo('name'),
+                            'class'         => 'img-fluid',
+                            'loading'       => 'eager',
+                            'fetchpriority' => 'high',
+                        )); ?>
+                    </a>
                 </div>
             <?php endif; ?>
         </div>
         <div class="col-md-8">
             <?php if ($bannertop1) : ?>
                 <div class="banner-header pb-2">
-                    <?php echo vdbanner('banner_header1', 'text-end'); ?>
+                    <?php echo vdbanner('banner_header1', 'text-md-end text-center', 'eager'); ?>
                 </div>
             <?php endif; ?>
         </div>

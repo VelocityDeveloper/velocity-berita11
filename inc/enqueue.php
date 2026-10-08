@@ -23,9 +23,7 @@ if( ! function_exists( 'justg_child_enqueue_script_style') ) {
             $theme->parent()->get('Version')
         );
         
-        $css_version = $theme->parent()->get('Version') . '.' . filemtime( get_stylesheet_directory() . '/css/custom.css' );
-        // wp_enqueue_style( 'slick-style', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css', $css_version);
-        // wp_enqueue_style( 'slick-style-theme', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css', $css_version);
+        $css_version = $theme->get('Version') . '.' . filemtime( get_stylesheet_directory() . '/css/custom.css' );
         wp_enqueue_style( 'custom-style', get_stylesheet_directory_uri() . '/css/custom.css', 
             array(),  // if the parent theme code has a dependency, copy it to here
             $css_version
@@ -36,10 +34,10 @@ if( ! function_exists( 'justg_child_enqueue_script_style') ) {
             $theme->get('Version')
         );
         
-        $js_version = $theme->parent()->get('Version') . '.' . filemtime( get_stylesheet_directory() . '/js/custom.js' );
-        // wp_enqueue_script( 'slick-scripts', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js', array(), $js_version, true );
-        wp_enqueue_script( 'justg-custom-scripts', get_stylesheet_directory_uri() . '/js/custom.js', array(), $js_version, true );
+        $js_version = $theme->get('Version') . '.' . filemtime( get_stylesheet_directory() . '/js/custom.js' );
+        wp_enqueue_script( 'justg-custom-scripts', get_stylesheet_directory_uri() . '/js/custom.js', array(), $js_version, array( 'in_footer' => true, 'strategy' => 'defer' ) );
 
 	}
-	add_action( 'wp_enqueue_scripts', 'justg_child_enqueue_script_style', 20 );
+	// Prioritas 30: custom.css harus termuat sesudah theme.min.css induk (prioritas 20).
+	add_action( 'wp_enqueue_scripts', 'justg_child_enqueue_script_style', 30 );
 }

@@ -12,150 +12,12 @@ add_action('after_setup_theme', 'velocitychild_theme_setup', 9);
 function velocitychild_theme_setup()
 {
 
-    if (class_exists('Kirki')) :
-
-        Kirki::add_panel('panel_berita', [
-            'priority'    => 10,
-            'title'       => esc_html__('Berita', 'justg'),
-            'description' => esc_html__('', 'justg'),
-        ]);
-
-        ///Section Color
-        Kirki::add_section('section_colorberita', [
-            'panel'    => 'panel_berita',
-            'title'    => __('Warna', 'justg'),
-            'priority' => 10,
-        ]);
-        Kirki::add_field('justg_config', [
-            'type'        => 'color',
-            'settings'    => 'color_theme',
-            'label'       => __('Color Theme', 'justg'),
-            'description' => esc_html__('', 'justg'),
-            'section'     => 'section_colorberita',
-            'default'     => 'green',
-            'transport'   => 'auto',
-            'output'      => [
-                [
-                    'element'   => ':root',
-                    'property'  => '--color-theme',
-                ],
-                [
-                    'element'   => '.border-color-theme',
-                    'property'  => '--bs-border-color',
-                ]
-            ],
-        ]);
-        Kirki::add_field('justg_config', [
-            'type'        => 'color',
-            'settings'    => 'color_theme_second',
-            'label'       => __('Color Theme Secondary', 'justg'),
-            'description' => esc_html__('', 'justg'),
-            'section'     => 'section_colorberita',
-            'default'     => 'green',
-            'transport'   => 'auto',
-            'output'      => [
-                [
-                    'element'   => ':root',
-                    'property'  => '--color-theme-second',
-                ]
-            ],
-        ]);
-
-        // Section Iklan
-        Kirki::add_section('setting_banner', [
-            'panel'    => 'panel_berita',
-            'title'    => __('Banner Setting', 'justg'),
-            'priority' => 10,
-        ]);
-        Kirki::add_field('justg_config', [
-            'type'        => 'image',
-            'settings'    => 'banner_header1',
-            'label'       => esc_html__('Banner Header1', 'justg'),
-            'description' => esc_html__('', 'justg'),
-            'section'     => 'setting_banner',
-            'default'     => '',
-        ]);
-        Kirki::add_field('justg_config', [
-            'type'        => 'image',
-            'settings'    => 'banner_single1',
-            'label'       => esc_html__('Banner Single', 'justg'),
-            'description' => esc_html__('Tampil di atas feature image.', 'justg'),
-            'section'     => 'setting_banner',
-            'default'     => '',
-        ]);
-        Kirki::add_field('justg_config', [
-            'type'        => 'image',
-            'settings'    => 'banner_single2',
-            'label'       => esc_html__('Banner Single', 'justg'),
-            'description' => esc_html__('Tampil di bawah konten.', 'justg'),
-            'section'     => 'setting_banner',
-            'default'     => '',
-        ]);
-        Kirki::add_field('justg_config', [
-            'type'        => 'image',
-            'settings'    => 'banner_footer',
-            'label'       => esc_html__('Banner Footer', 'justg'),
-            'description' => esc_html__('Tampil di footer.', 'justg'),
-            'section'     => 'setting_banner',
-            'default'     => '',
-        ]);
-
-        ///Section Sosmed
-        Kirki::add_section('section_sosmed', [
-            'panel'    => 'panel_berita',
-            'title'    => __('Social Media', 'justg'),
-            'priority' => 10,
-        ]);
-        Kirki::add_field('justg_config', [
-            'type'        => 'text',
-            'settings'    => 'sosmed_facebook',
-            'label'       => esc_html__('Facebook', 'justg'),
-            'description' => esc_html__('ex. https://www.facebook.com/', 'justg'),
-            'section'     => 'section_sosmed',
-            'default'     => 'https://www.facebook.com/',
-        ]);
-        Kirki::add_field('justg_config', [
-            'type'        => 'text',
-            'settings'    => 'sosmed_instagram',
-            'label'       => esc_html__('Instagram', 'justg'),
-            'description' => esc_html__('ex. https://www.instagram.com/', 'justg'),
-            'section'     => 'section_sosmed',
-            'default'     => 'https://www.instagram.com/',
-        ]);
-        Kirki::add_field('justg_config', [
-            'type'        => 'text',
-            'settings'    => 'sosmed_twitter',
-            'label'       => esc_html__('Twitter', 'justg'),
-            'description' => esc_html__('ex. https://www.twitter.com/', 'justg'),
-            'section'     => 'section_sosmed',
-            'default'     => 'https://www.twitter.com/',
-        ]);
-        Kirki::add_field('justg_config', [
-            'type'        => 'text',
-            'settings'    => 'sosmed_youtube',
-            'label'       => esc_html__('Youtube', 'justg'),
-            'description' => esc_html__('ex. https://www.youtube.com/', 'justg'),
-            'section'     => 'section_sosmed',
-            'default'     => 'https://www.youtube.com/',
-        ]);
-        Kirki::add_field('justg_config', [
-            'type'        => 'text',
-            'settings'    => 'sosmedtiktok',
-            'label'       => esc_html__('Tiktok', 'justg'),
-            'description' => esc_html__('ex. https://www.tiktok.com/', 'justg'),
-            'section'     => 'section_sosmed',
-            'default'     => 'https://www.tiktok.com/',
-        ]);
-
-    endif;
-
     register_nav_menus(
         array(
             'secondary' => __('Secondary Menu', 'justg'),
         )
     );
 
-    //remove action from Parent Theme
     //remove action from Parent Theme
     remove_action('justg_header', 'justg_header_menu');
     remove_action('justg_do_footer', 'justg_the_footer_open');
@@ -205,11 +67,80 @@ function justg_after_wrapper_content()
 }
 
 // banner func
-function vdbanner($sett, $class)
+function vdbanner($sett, $class, $loading = 'lazy')
 {
     $img = velocitytheme_option($sett);
-    if ($img) :
-        $banner = '<div class="' . $class . '"><img src="' . $img . '" /></div>';
-    endif;
-    return $banner;
+    if (!$img) {
+        return '';
+    }
+
+    $html = '<img src="' . esc_url($img) . '" alt="' . esc_attr__('Banner', 'justg') . '" class="img-fluid" loading="' . esc_attr($loading) . '" decoding="async">';
+    $link = velocitytheme_option($sett . '_link');
+    if ($link) {
+        $html = '<a href="' . esc_url($link) . '" target="_blank" rel="noopener sponsored">' . $html . '</a>';
+    }
+
+    return '<div class="vd-banner ' . esc_attr($class) . '">' . $html . '</div>';
 }
+
+/**
+ * Gambar unggulan artikel memakai srcset WordPress; artikel tanpa gambar
+ * mendapat gambar pengganti agar susunan kartu tidak berantakan.
+ */
+function velocity_berita11_thumbnail($size = 'medium', $attr = array())
+{
+    $attr = wp_parse_args($attr, array(
+        'class'    => 'ratio-thumbnail-image',
+        'alt'      => the_title_attribute(array('echo' => false)),
+        'loading'  => 'lazy',
+        'decoding' => 'async',
+    ));
+
+    if (has_post_thumbnail()) {
+        return get_the_post_thumbnail(null, $size, $attr);
+    }
+
+    return '<img src="' . esc_url(get_stylesheet_directory_uri() . '/img/no-image.svg') . '" class="' . esc_attr($attr['class']) . ' no-image" alt="" width="300" height="200" loading="lazy">';
+}
+
+// Tombol bagikan (justg_share pindah dari induk ke Velocity Addons 2.x).
+function velocity_berita11_share()
+{
+    if (function_exists('justg_share')) {
+        echo justg_share();
+        return;
+    }
+
+    $url   = rawurlencode(get_permalink());
+    $title = rawurlencode(html_entity_decode(get_the_title(), ENT_QUOTES, 'UTF-8'));
+    $links = array(
+        'Facebook' => 'https://www.facebook.com/sharer/sharer.php?u=' . $url,
+        'X'        => 'https://twitter.com/intent/tweet?text=' . $title . '&url=' . $url,
+        'WhatsApp' => 'https://api.whatsapp.com/send?text=' . $title . '%20' . $url,
+        'Telegram' => 'https://t.me/share/url?url=' . $url . '&text=' . $title,
+    );
+
+    echo '<div class="d-flex align-items-center flex-wrap gap-1"><small class="me-1 text-muted">' . esc_html__('Bagikan:', 'justg') . '</small>';
+    foreach ($links as $label => $href) {
+        echo '<a class="btn btn-sm btn-light border" href="' . esc_url($href) . '" target="_blank" rel="noopener nofollow">' . esc_html($label) . '</a>';
+    }
+    echo '</div>';
+}
+
+/**
+ * Breadcrumb: halaman arsip memakai judul arsip (breadcrumb induk di arsip
+ * kategori mengambil kategori artikel pertama, bukan kategori yang dibuka).
+ */
+function velocity_berita11_breadcrumb()
+{
+    if (!is_archive() && !is_search()) {
+        echo justg_breadcrumb();
+        return;
+    }
+
+    $title = is_search() ? sprintf(__('Pencarian: %s', 'justg'), get_search_query()) : wp_strip_all_tags(get_the_archive_title());
+    echo '<div class="breadcrumbs pb-2"><a href="' . esc_url(home_url('/')) . '">' . esc_html__('Home', 'justg') . '</a> &raquo; <span>' . esc_html($title) . '</span></div>';
+}
+
+// Judul arsip tanpa awalan "Kategori:" / "Category:".
+add_filter('get_the_archive_title_prefix', '__return_empty_string');
